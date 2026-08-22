@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Single-Screen — Prototype</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       HERO
+       The first thing visitors see.
+       No sidebar here.
+       ===================================================== -->
+
+  <section class="hero" id="home">
+
+    <div class="hero-image">
+      <img
+        id="hero-img"
+        src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+        alt="Cinema screen"
+      >
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+      <p class="eyebrow">
+        A research project
+      </p>
+
+      <h1>
+        Single-Screen
+      </h1>
+
+      <p class="hero-description">
+        Notes toward a technological history of cinema halls in Bengal.
+      </p>
+
+      <div class="scroll-indicator">
+        SCROLL TO ENTER
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SIDEBAR
+       It is hidden during the hero and appears afterwards.
+       ===================================================== -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-name">
+      SINGLE-SCREEN
+    </div>
+
+    <!-- Very thin reading-progress line -->
+    <div class="progress-line">
+      <div class="progress-line-fill" id="progress-line-fill"></div>
+    </div>
+
+    <nav>
+
+      <a href="#introduction" data-section="introduction">
+        <span class="sidebar-dot"></span>
+        Going to Movies
+      </a>
+
+      <a href="#hall" data-section="hall">
+        <span class="sidebar-dot"></span>
+        The Hall
+      </a>
+
+      <a href="#technology" data-section="technology">
+        <span class="sidebar-dot"></span>
+        Technology
+      </a>
+
+      <a href="#city" data-section="city">
+        <span class="sidebar-dot"></span>
+        Cinema &amp; City
+      </a>
+
+      <a href="#notes" data-section="notes">
+        <span class="sidebar-dot"></span>
+        Notes
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- =====================================================
+       MAIN READING AREA
+       ===================================================== -->
+
+  <main>
+
+
+    <!-- ===================================================
+         INTRODUCTION
+         =================================================== -->
+
+    <section
+      class="reading-section"
+      id="introduction"
+      data-section-name="introduction"
+    >
+
+      <div class="text-column">
+
+        <p class="section-label">
+          01
+        </p>
+
+        <h2>
+          Going to Movies
+        </h2>
+
+        <p>
+          Cinema-going was never simply about watching a film.
+          The journey to the theatre, the architecture of the hall,
+          the crowd, the ticket and the machinery of projection
+          were all part of the experience.
+        </p>
+
+        <p>
+          This prototype explores how these different elements
+          can become part of a single research narrative.
+          <a href="#note-1" class="citation">¹</a>
+        </p>
+
+      </div>
+
+
+      <!-- Separate image block -->
+      <figure class="image-block">
+
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+            alt="Cinema screen"
+          >
+        </div>
+
+        <figcaption>
+          Image caption can go here.
+        </figcaption>
+
+      </figure>
+
+
+      <div class="text-column">
+
+        <p>
+          A visit to the cinema therefore involved much more than
+          the moment when the projector began to run. It involved
+          movement through streets, thresholds, ticket counters,
+          waiting areas, seats and finally the illuminated screen.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         THE HALL
+         =================================================== -->
+
+    <section
+      class="reading-section"
+      id="hall"
+      data-section-name="hall"
+    >
+
+      <div class="text-column">
+
+        <p class="section-label">
+          02
+        </p>
+
+        <h2>
+          The Hall
+        </h2>
+
+        <p>
+          The cinema hall can be understood not simply as a
+          container for the screen, but as an assemblage of
+          architecture, technology, people and urban movement.
+        </p>
+
+        <p>
+          The room, its entrances, seats, projection equipment
+          and spectators form a connected environment rather
+          than a collection of separate objects.
+        </p>
+
+      </div>
+
+
+      <!-- Another separate image -->
+      <figure class="image-block">
+
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2200&q=90"
+            alt="Cinema image"
+          >
+        </div>
+
+        <figcaption>
+          Archival image / caption.
+        </figcaption>
+
+      </figure>
+
+
+      <!-- =================================================
+           SPECIAL IMMERSIVE IMAGE
+           This is the first example of text floating
+           over a full-width photograph.
+           ================================================= -->
+
+      <section
+        class="immersive-section"
+        data-background="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2400&q=90"
+      >
+
+        <div class="immersive-background"></div>
+
+        <div class="immersive-darkness"></div>
+
+        <div class="immersive-text">
+
+          <p class="eyebrow">
+            THE BUILT ENVIRONMENT
+          </p>
+
+          <h3>
+            A hall is never only a room.
+          </h3>
+
+          <p>
+            Architecture, machinery, bodies and movement meet here.
+          </p>
+
+        </div>
+
+      </section>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         TECHNOLOGY
+         =================================================== -->
+
+    <section
+      class="reading-section"
+      id="technology"
+      data-section-name="technology"
+    >
+
+      <div class="text-column">
+
+        <p class="section-label">
+          03
+        </p>
+
+        <h2>
+          Technology
+        </h2>
+
+        <p>
+          Projectors, sound systems, screens and electrical systems
+          transformed the experience of exhibition over time.
+        </p>
+
+        <p>
+          The machine was never isolated from the space around it;
+          it operated through workers, infrastructures, spectators
+          and architectural arrangements.
+        </p>
+
+      </div>
+
+
+      <figure class="image-block">
+
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2200&q=90"
+            alt="Cinema architecture"
+          >
+        </div>
+
+        <figcaption>
+          Image caption can go here.
+        </figcaption>
+
+      </figure>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         CINEMA & CITY
+         =================================================== -->
+
+    <section
+      class="reading-section"
+      id="city"
+      data-section-name="city"
+    >
+
+      <div class="text-column">
+
+        <p class="section-label">
+          04
+        </p>
+
+        <h2>
+          Cinema and the City
+        </h2>
+
+        <p>
+          Cinema halls were embedded within the changing geography
+          of the city. Their locations, entrances, streets and
+          neighbourhoods shaped the experience of moviegoing.
+        </p>
+
+        <p>
+          This section will eventually contain photographs,
+          archival documents, maps and fieldwork material.
+        </p>
+
+      </div>
+
+
+      <figure class="image-block">
+
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+            alt="Cinema"
+          >
+        </div>
+
+        <figcaption>
+          Image caption can go here.
+        </figcaption>
+
+      </figure>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         NOTES
+         =================================================== -->
+
+    <section
+      class="reading-section notes-section"
+      id="notes"
+      data-section-name="notes"
+    >
+
+      <div class="text-column">
+
+        <p class="section-label">
+          05
+        </p>
+
+        <h2>
+          Notes
+        </h2>
+
+
+        <div
+          class="footnote"
+          id="note-1"
+        >
+
+          <sup>1</sup>
+
+          <span>
+            Author, <em>Book Title</em>,
+            Publisher, Year, p. 25.
+          </span>
+
+          <a
+            href="#introduction"
+            class="return-link"
+            aria-label="Return to text"
+          >
+            ↩
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
