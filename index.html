@@ -3,42 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Single-Screen — Prototype</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- FULL-SCREEN HERO: no sidebar here -->
+  <!-- HERO: full screen, no sidebar -->
   <section class="hero" id="home">
-    <div class="hero-background">
-      <img
-        id="hero-image"
-        src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
-        alt="Cinema screen"
-      >
-      <div class="hero-overlay"></div>
+    <div class="hero-media">
+      <img id="hero-image"
+           src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+           alt="Cinema screen">
+      <div class="hero-shade"></div>
     </div>
 
-    <div class="hero-content">
+    <div class="hero-copy">
       <p class="eyebrow">A research prototype</p>
       <h1>Single-Screen</h1>
-      <p class="hero-intro">
-        Notes toward a technological history of cinema halls in Bengal.
-      </p>
+      <p class="hero-intro">Notes toward a technological history of cinema halls in Bengal.</p>
       <div class="scroll-prompt">SCROLL TO ENTER</div>
     </div>
   </section>
 
 
-  <!-- STICKY SIDEBAR: appears only after the hero -->
+  <!-- STICKY SIDEBAR -->
   <aside class="sidebar" aria-label="Page navigation">
-
     <div class="sidebar-title">SINGLE-SCREEN</div>
 
-    <!-- sleek progress line only -->
     <div class="progress-track" aria-hidden="true">
       <div class="progress-fill" id="progress-fill"></div>
     </div>
@@ -48,29 +40,29 @@
         <span class="nav-dot"></span>
         <span>Introduction</span>
       </a>
-
+      <a href="#hall" data-section="hall">
+        <span class="nav-dot"></span>
+        <span>The Hall</span>
+      </a>
       <a href="#cinema" data-section="cinema">
         <span class="nav-dot"></span>
         <span>Cinema</span>
       </a>
-
       <a href="#references" data-section="references">
         <span class="nav-dot"></span>
         <span>Notes</span>
       </a>
     </nav>
-
   </aside>
 
 
   <main class="page">
 
-    <!-- INTRODUCTION / TEXT-ONLY FLOW -->
-    <section class="text-section intro-section" id="intro" data-nav-section="intro">
+    <!-- TEXT + SEPARATE IMAGE BLOCKS -->
+    <section class="longform" id="intro" data-nav-section="intro">
 
-      <div class="text-block">
+      <div class="text-block first-text">
         <p class="section-number">01</p>
-
         <h2>Going to Movies</h2>
 
         <p>
@@ -88,19 +80,18 @@
       </div>
 
 
-      <!-- SEPARATE IMAGE BLOCK: wider than text -->
-      <figure class="wide-image-block reveal-image">
-        <img
-          src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
-          alt="Cinema screen"
-        >
+      <!-- IMAGE BLOCK: wider than text, never beside it -->
+      <figure class="image-block image-reveal">
+        <div class="image-wrap">
+          <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+               alt="Cinema screen">
+        </div>
         <figcaption>Image caption can go here.</figcaption>
       </figure>
 
 
-      <div class="text-block">
+      <div class="text-block" id="hall" data-nav-section="hall">
         <p class="section-number">02</p>
-
         <h2>The Hall</h2>
 
         <p>
@@ -108,15 +99,22 @@
           for the screen, but as an assemblage of architecture,
           technology, people and urban movement.
         </p>
+
+        <p>
+          The room, its entrances, seats, projection equipment and
+          spectators form a connected environment rather than a
+          collection of separate objects.
+        </p>
       </div>
 
 
-      <!-- FULL-WIDTH VISUAL MOMENT -->
-      <section class="immersive-image" data-bg-image="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2400&q=90">
-        <div class="immersive-overlay"></div>
+      <!-- SELECTED FULL-WIDTH IMAGE MOMENT WITH TEXT OVER IMAGE -->
+      <section class="immersive" data-bg="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2400&q=90">
+        <div class="immersive-bg"></div>
+        <div class="immersive-shade"></div>
 
-        <div class="immersive-content">
-          <p class="eyebrow">The built environment</p>
+        <div class="immersive-copy">
+          <p class="eyebrow">THE BUILT ENVIRONMENT</p>
           <h3>A hall is never only a room.</h3>
           <p>
             Architecture, machinery, bodies and movement meet here.
@@ -127,7 +125,6 @@
 
       <div class="text-block">
         <p class="section-number">03</p>
-
         <h2>Technology</h2>
 
         <p>
@@ -137,30 +134,28 @@
 
         <p>
           The machine was never isolated from the space around it;
-          it operated through a network of workers, infrastructures,
-          spectators and architectural arrangements.
+          it operated through workers, infrastructures, spectators
+          and architectural arrangements.
         </p>
       </div>
 
 
-      <!-- ANOTHER SEPARATE IMAGE BLOCK -->
-      <figure class="wide-image-block reveal-image">
-        <img
-          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2200&q=90"
-          alt="Cinema archive placeholder"
-        >
+      <figure class="image-block image-reveal">
+        <div class="image-wrap">
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2200&q=90"
+               alt="Cinema archive placeholder">
+        </div>
         <figcaption>Archival image / caption.</figcaption>
       </figure>
 
     </section>
 
 
-    <!-- CINEMA SECTION -->
-    <section class="text-section" id="cinema" data-nav-section="cinema">
+    <!-- CINEMA -->
+    <section class="longform" id="cinema" data-nav-section="cinema">
 
       <div class="text-block">
         <p class="section-number">04</p>
-
         <h2>Cinema and the City</h2>
 
         <p>
@@ -176,30 +171,27 @@
       </div>
 
 
-      <figure class="wide-image-block reveal-image">
-        <img
-          src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2200&q=90"
-          alt="Cinema image placeholder"
-        >
+      <figure class="image-block image-reveal">
+        <div class="image-wrap">
+          <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2200&q=90"
+               alt="Cinema image placeholder">
+        </div>
         <figcaption>Image caption can go here.</figcaption>
       </figure>
 
     </section>
 
 
-    <!-- REFERENCES -->
-    <section class="text-section references" id="references" data-nav-section="references">
+    <!-- NOTES -->
+    <section class="longform references" id="references" data-nav-section="references">
 
       <div class="text-block">
         <p class="section-number">05</p>
-
         <h2>Notes</h2>
 
         <div class="note" id="note1">
           <sup>1</sup>
-          <span>
-            Author, <em>Book Title</em>, Publisher, Year, p. 25.
-          </span>
+          <span>Author, <em>Book Title</em>, Publisher, Year, p. 25.</span>
           <a href="#intro" class="back-link" aria-label="Return to text">↩</a>
         </div>
       </div>
@@ -208,8 +200,6 @@
 
   </main>
 
-
   <script src="script.js"></script>
-
 </body>
 </html>
