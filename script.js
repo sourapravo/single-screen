@@ -1,72 +1,72 @@
-const image = document.getElementById("story-image");
-const imageIndex = document.getElementById("image-index");
+const sidebar = document.querySelector(".sidebar");
+const hero = document.querySelector(".hero");
+
+const image = document.getElementById("hero-image");
 const progressFill = document.getElementById("progress-fill");
-const progressPercent = document.getElementById("progress-percent");
 
 const steps = document.querySelectorAll(".step");
 const navLinks = document.querySelectorAll(".side-nav a");
 const sections = document.querySelectorAll("[data-nav-section]");
-const archiveImage = document.querySelector(".archive-image");
-
-const images = [
-  "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=85",
-  "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=85",
-  "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1600&q=85"
-];
-
-let currentImage = 0;
-let imageTimer = null;
+const wideImages = document.querySelectorAll(".reveal-image");
+const immersiveImages = document.querySelectorAll(".immersive-image");
 
 
 /* =========================================================
-   SCROLL-DRIVEN IMAGE CHANGES
+   SHOW SIDEBAR ONLY AFTER HERO
    ========================================================= */
 
-const stepObserver = new IntersectionObserver(
+const heroObserver = new IntersectionObserver(
   (entries) => {
 
     entries.forEach(entry => {
 
-      if (!entry.isIntersecting) return;
-
-      const index = [...steps].indexOf(entry.target);
-
-      entry.target.classList.add("is-active");
-
-      if (index === currentImage) return;
-
-      currentImage = index;
-
-      image.style.opacity = "0";
-      image.style.transform = "scale(1.14)";
-
-      clearTimeout(imageTimer);
-
-      imageTimer = setTimeout(() => {
-
-        image.src = images[index];
-
-        image.onload = () => {
-          image.style.opacity = "1";
-          image.style.transform = "scale(1)";
-        };
-
-        imageIndex.textContent =
-          String(index + 1).padStart(2, "0") +
-          " / " +
-          String(images.length).padStart(2, "0");
-
-      }, 350);
+      if (entry.isIntersecting) {
+        sidebar.classList.remove("visible");
+      } else {
+        sidebar.classList.add("visible");
+      }
 
     });
 
   },
   {
-    threshold: 0.55
+    threshold: 0.05
   }
 );
 
-steps.forEach(step => stepObserver.observe(step));
+heroObserver.observe(hero);
+
+
+/* =========================================================
+   SLEEK READING PROGRESS LINE
+   No percentage / number display.
+   ========================================================= */
+
+function updateProgress() {
+
+  const scrollTop =
+    window.scrollY ||
+    document.documentElement.scrollTop;
+
+  const documentHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+
+  const progress =
+    documentHeight > 0
+      ? Math.min(100, Math.max(0, (scrollTop / documentHeight) * 100))
+      : 0;
+
+  progressFill.style.height = progress + "%";
+}
+
+window.addEventListener("scroll", updateProgress, {
+  passive: true
+});
+
+window.addEventListener("resize", updateProgress);
+
+updateProgress();
 
 
 /* =========================================================
@@ -102,59 +102,113 @@ sections.forEach(section => sectionObserver.observe(section));
 
 
 /* =========================================================
-   READING PROGRESS
+   SEPARATE IMAGE BLOCK REVEALS
    ========================================================= */
 
-function updateProgress() {
+const imageObserver = new IntersectionObserver(
+  (entries) => {
 
-  const scrollTop =
-    window.scrollY ||
-    document.documentElement.scrollTop;
+    entries.forEach(entry => {
 
-  const documentHeight =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+      }
 
-  const progress =
-    documentHeight > 0
-      ? Math.min(100, Math.max(0, (scrollTop / documentHeight) * 100))
-      : 0;
+    });
 
-  progressFill.style.height = progress + "%";
-  progressPercent.textContent = Math.round(progress) + "%";
-}
+  },
+  {
+    threshold: 0.28
+  }
+);
 
-window.addEventListener("scroll", updateProgress, {
-  passive: true
+wideImages.forEach(imageBlock => {
+  imageObserver.observe(imageBlock);
 });
-
-window.addEventListener("resize", updateProgress);
-
-updateProgress();
 
 
 /* =========================================================
-   ARCHIVE IMAGE REVEAL
+   FULL-WIDTH BACKGROUND IMAGE SECTIONS
+   Each immersive block gets its image from data-bg-image.
    ========================================================= */
 
-if (archiveImage) {
+immersiveImages.forEach(section => {
 
-  const archiveObserver = new IntersectionObserver(
-    (entries) => {
+  const imageURL = section.dataset.bgImage;
 
-      entries.forEach(entry => {
+  if (imageURL) {
+    section.style.setProperty("--bg-image", `url("${imageURL}")`);
+  }
 
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-        }
+  imageObserver.observe(section);
+});
 
-      });
 
-    },
-    {
-      threshold: 0.35
-    }
-  );
+/* =========================================================
+   HERO: SUBTLE PARALLAX / ZOOM AS YOU LEAVE THE HERO
+   ========================================================= */
 
-  archiveObserver.observe(archiveImage);
+function heroParallax() {
+
+  const scrollY = window.scrollY;
+
+  if (scrollY < window.innerHeight) {
+
+    const progress =
+      Math.min(1, scrollY / window.innerHeight);
+
+    const scale =
+      1.03 + (progress * 0.08);
+
+    const translateY =
+      progress * 25;
+
+    image.style.transform =
+      `scale(${scale}) translateY(${translateY}px)`;
+
+    image.style.opacity =
+      String(1 - (progress * 0.18));
+  }
 }
+
+window.addEventListener("scroll", heroParallax, {
+  passive: true
+});
+
+heroParallax();
+
+
+/* =========================================================
+   SMOOTH TEXT REVEAL
+   ========================================================= */
+
+steps.forEach(step => {
+
+  step.style.transition =
+    "opacity 0.7s ease, transform 0.8s ease";
+
+  step.style.opacity = "0.45";
+  step.style.transform = "translateY(22px)";
+
+});
+
+
+const stepObserver = new IntersectionObserver(
+  (entries) => {
+
+    entries.forEach(entry => {
+
+      if (!entry.isIntersecting) return;
+
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
+
+    });
+
+  },
+  {
+    threshold: 0.45
+  }
+);
+
+steps.forEach(step => stepObserver.observe(step));
