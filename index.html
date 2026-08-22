@@ -1,558 +1,174 @@
-* {
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-html {
-  scroll-behavior: smooth;
-}
+  <title>Single-Screen — Prototype</title>
 
-body {
-  margin: 0;
-  background: #ffffff;
-  color: #171717;
-  font-family: Arial, sans-serif;
-  line-height: 1.75;
-}
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
 
-/* =========================================================
-   STICKY SIDEBAR
-   ========================================================= */
+  <!-- STICKY LEFT SIDEBAR -->
+  <aside class="sidebar" aria-label="Page navigation">
+    <div class="sidebar-title">SINGLE-SCREEN</div>
 
-.sidebar {
-  position: fixed;
-  z-index: 1000;
-  left: 28px;
-  top: 50%;
-  transform: translateY(-50%);
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
 
-  width: 175px;
+    <nav class="side-nav">
+      <a href="#intro" data-section="intro" class="active">
+        <span class="nav-dot"></span>
+        <span>Introduction</span>
+      </a>
 
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+      <a href="#cinema" data-section="cinema">
+        <span class="nav-dot"></span>
+        <span>Cinema</span>
+      </a>
 
-  color: #222;
-}
+      <a href="#references" data-section="references">
+        <span class="nav-dot"></span>
+        <span>Notes</span>
+      </a>
+    </nav>
 
-.sidebar-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  line-height: 1.3;
-  margin-bottom: 8px;
-}
+    <div class="progress-label">
+      <span id="progress-percent">0%</span>
+    </div>
+  </aside>
 
 
-/* Vertical reading progress line */
+  <main class="page">
 
-.progress-track {
-  position: absolute;
-  left: -12px;
-  top: 38px;
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">A research prototype</p>
 
-  width: 1px;
-  height: 190px;
+      <h1>Single-Screen</h1>
 
-  background: #dedede;
-}
+      <p class="intro">
+        Notes toward a technological history of cinema halls in Bengal.
+      </p>
+    </section>
 
-.progress-fill {
-  width: 100%;
-  height: 0%;
-  background: #111;
 
-  transition: height 0.08s linear;
-}
+    <!-- SCROLL STORY -->
+    <section class="story" id="intro" data-nav-section="intro">
 
+      <div class="story-text">
 
-/* Navigation */
+        <div class="step" data-image="0">
+          <p class="step-number">01</p>
+          <h2>Going to Movies</h2>
 
-.side-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-}
+          <p>
+            Cinema-going was never simply about watching a film.
+            The journey to the theatre, the architecture of the hall,
+            the crowd, the ticket and the machinery of projection
+            were all part of the experience.
+          </p>
 
-.side-nav a {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
+          <p>
+            This prototype explores how these different elements
+            can become part of a single research narrative.
+            <a href="#note1" class="ref" aria-label="Footnote 1">¹</a>
+          </p>
+        </div>
 
-  color: #9a9a9a;
-  text-decoration: none;
 
-  font-size: 12px;
-  line-height: 1.2;
+        <div class="step" data-image="1">
+          <p class="step-number">02</p>
+          <h2>The Hall</h2>
 
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
-}
+          <p>
+            The cinema hall can be understood not simply as a container
+            for the screen, but as an assemblage of architecture,
+            technology, people and urban movement.
+          </p>
+        </div>
 
-.side-nav a:hover {
-  color: #222;
-  transform: translateX(2px);
-}
 
-.side-nav a.active {
-  color: #111;
-  font-weight: 600;
-}
+        <div class="step" data-image="2">
+          <p class="step-number">03</p>
+          <h2>Technology</h2>
 
-.nav-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+          <p>
+            Projectors, sound systems, screens and electrical systems
+            transformed the experience of exhibition over time.
+          </p>
+        </div>
 
-  background: #cfcfcf;
+      </div>
 
-  flex: 0 0 5px;
 
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
-}
+      <!-- STICKY VISUAL -->
+      <div class="story-visual">
+        <div class="visual-frame" id="visual-frame">
+          <img
+            id="story-image"
+            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=85"
+            alt="Cinema screen"
+          >
+          <div class="image-index" id="image-index">01 / 03</div>
+        </div>
+      </div>
 
-.side-nav a.active .nav-dot {
-  background: #111;
-  transform: scale(1.5);
-}
+    </section>
 
-.progress-label {
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: #aaa;
-}
 
+    <!-- CINEMA SECTION -->
+    <section class="normal-section" id="cinema" data-nav-section="cinema">
 
-/* =========================================================
-   MAIN PAGE
-   ========================================================= */
+      <p class="section-number">04</p>
 
-.page {
-  margin-left: 230px;
-}
-
+      <h2>Cinema and the City</h2>
 
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero {
-  max-width: 900px;
-  margin: auto;
+      <p>
+        Cinema halls were embedded within the changing geography
+        of the city. Their locations, entrances, streets and
+        neighbourhoods shaped the experience of moviegoing.
+      </p>
 
-  min-height: 88vh;
+      <p>
+        This section will eventually contain photographs,
+        archival documents, maps and fieldwork material.
+      </p>
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+      <div class="archive-image">
+        <img
+          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=85"
+          alt="Cinema archive placeholder"
+        >
+      </div>
 
-  padding: 100px 50px;
-}
+    </section>
 
-.eyebrow,
-.section-number,
-.step-number {
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 11px;
-  color: #888;
-}
 
-h1 {
-  font-family: Georgia, serif;
-  font-size: clamp(64px, 10vw, 140px);
-  line-height: 0.9;
-  font-weight: 400;
-  margin: 20px 0 30px;
-  letter-spacing: -0.04em;
-}
+    <!-- REFERENCES -->
+    <section class="normal-section references" id="references" data-nav-section="references">
 
-.intro {
-  max-width: 650px;
-  font-size: 22px;
-  line-height: 1.55;
-}
+      <p class="section-number">05</p>
 
+      <h2>Notes</h2>
 
-/* =========================================================
-   SCROLL STORY
-   ========================================================= */
+      <div class="note" id="note1">
+        <sup>1</sup>
+        <span>
+          Author, <em>Book Title</em>, Publisher, Year, p. 25.
+        </span>
+        <a href="#intro" class="back-link" aria-label="Return to text">↩</a>
+      </div>
 
-.story {
-  position: relative;
+    </section>
 
-  display: grid;
-  grid-template-columns: minmax(300px, 0.9fr) minmax(420px, 1.1fr);
-  gap: 60px;
+  </main>
 
-  max-width: 1280px;
-  margin: auto;
 
-  padding: 80px 55px 140px;
-}
+  <script src="script.js"></script>
 
-
-/* Text */
-
-.story-text {
-  padding-right: 20px;
-}
-
-.step {
-  min-height: 82vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  opacity: 0.38;
-  transform: translateY(25px);
-
-  transition:
-    opacity 0.6s ease,
-    transform 0.8s ease;
-}
-
-.step.is-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.step-number {
-  margin-bottom: 18px;
-}
-
-h2 {
-  font-family: Georgia, serif;
-  font-weight: 400;
-  font-size: 44px;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  margin: 0 0 28px;
-}
-
-.step p {
-  max-width: 650px;
-  font-size: 18px;
-}
-
-
-/* =========================================================
-   STICKY IMAGE
-   ========================================================= */
-
-.story-visual {
-  position: sticky;
-  top: 90px;
-
-  height: calc(100vh - 130px);
-
-  display: flex;
-  align-items: center;
-
-  align-self: start;
-}
-
-.visual-frame {
-  position: relative;
-
-  width: 100%;
-  height: 72vh;
-
-  overflow: hidden;
-
-  background: #f2f2f2;
-}
-
-.visual-frame img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transform: scale(1);
-
-  opacity: 1;
-
-  transition:
-    opacity 0.7s ease,
-    transform 1.8s cubic-bezier(0.2, 0.7, 0.2, 1);
-
-  will-change: transform, opacity;
-}
-
-
-/* Image number */
-
-.image-index {
-  position: absolute;
-  right: 16px;
-  bottom: 14px;
-
-  color: white;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-
-  text-shadow: 0 1px 8px rgba(0,0,0,0.45);
-}
-
-
-/* =========================================================
-   NORMAL SECTIONS
-   ========================================================= */
-
-.normal-section {
-  max-width: 750px;
-  margin: auto;
-
-  padding: 190px 30px;
-}
-
-.normal-section p:not(.section-number) {
-  font-size: 18px;
-}
-
-.section-number {
-  margin-bottom: 18px;
-}
-
-.archive-image {
-  margin-top: 90px;
-
-  width: 100%;
-  height: 520px;
-
-  overflow: hidden;
-}
-
-.archive-image img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transform: scale(1);
-
-  transition: transform 1.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.archive-image.is-visible img {
-  transform: scale(1.07);
-}
-
-
-/* =========================================================
-   REFERENCES
-   ========================================================= */
-
-.references {
-  padding-bottom: 300px;
-}
-
-.note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-
-  font-size: 14px;
-  line-height: 1.65;
-
-  padding: 22px 0;
-
-  border-top: 1px solid #e4e4e4;
-}
-
-.note sup {
-  font-size: 11px;
-  line-height: 1.4;
-}
-
-
-/* BLUE IN-TEXT REFERENCES */
-
-.ref {
-  color: #1769e0;
-  text-decoration: none;
-
-  font-size: 0.72em;
-  vertical-align: super;
-
-  transition: opacity 0.2s ease;
-}
-
-.ref:hover {
-  opacity: 0.55;
-}
-
-
-/* Return arrow */
-
-.back-link {
-  color: #1769e0;
-  text-decoration: none;
-
-  margin-left: 8px;
-
-  transition: opacity 0.2s ease;
-}
-
-.back-link:hover {
-  opacity: 0.55;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-  .sidebar {
-    left: 15px;
-    width: 120px;
-  }
-
-  .sidebar-title {
-    font-size: 9px;
-  }
-
-  .side-nav {
-    gap: 11px;
-  }
-
-  .side-nav a {
-    font-size: 10px;
-  }
-
-  .page {
-    margin-left: 165px;
-  }
-
-  .story {
-    grid-template-columns: 1fr;
-    padding: 60px 25px 100px;
-  }
-
-  .story-text {
-    padding-right: 0;
-  }
-
-  .story-visual {
-    position: sticky;
-    top: 80px;
-    height: 55vh;
-    order: -1;
-    margin-bottom: 30px;
-  }
-
-  .visual-frame {
-    height: 55vh;
-  }
-
-  .step {
-    min-height: 70vh;
-  }
-
-  .normal-section {
-    padding: 130px 25px;
-  }
-}
-
-
-@media (max-width: 600px) {
-
-  .sidebar {
-    position: fixed;
-    left: 0;
-    top: auto;
-    bottom: 0;
-    transform: none;
-
-    width: 100%;
-    height: auto;
-
-    padding: 10px 15px;
-
-    background: rgba(255,255,255,0.94);
-    backdrop-filter: blur(10px);
-
-    border-top: 1px solid #eee;
-  }
-
-  .sidebar-title,
-  .progress-label,
-  .progress-track {
-    display: none;
-  }
-
-  .side-nav {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .side-nav a {
-    font-size: 9px;
-  }
-
-  .nav-dot {
-    display: none;
-  }
-
-  .page {
-    margin-left: 0;
-  }
-
-  .hero {
-    min-height: 75vh;
-    padding: 80px 25px;
-  }
-
-  h1 {
-    font-size: clamp(56px, 18vw, 90px);
-  }
-
-  .intro {
-    font-size: 18px;
-  }
-
-  .story {
-    display: block;
-    padding: 40px 20px 80px;
-  }
-
-  .story-visual {
-    height: 50vh;
-    margin-bottom: 25px;
-  }
-
-  .visual-frame {
-    height: 50vh;
-  }
-
-  .step {
-    min-height: 75vh;
-  }
-
-  h2 {
-    font-size: 34px;
-  }
-
-  .step p,
-  .normal-section p:not(.section-number) {
-    font-size: 17px;
-  }
-
-  .normal-section {
-    padding: 110px 22px 180px;
-  }
-
-  .archive-image {
-    height: 420px;
-  }
-}
+</body>
+</html>
