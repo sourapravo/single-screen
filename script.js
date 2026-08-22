@@ -1,23 +1,22 @@
 const sidebar = document.querySelector(".sidebar");
 const hero = document.querySelector(".hero");
+const heroImage = document.getElementById("hero-image");
 
-const image = document.getElementById("hero-image");
 const progressFill = document.getElementById("progress-fill");
 
-const steps = document.querySelectorAll(".step");
-const navLinks = document.querySelectorAll(".side-nav a");
 const sections = document.querySelectorAll("[data-nav-section]");
-const wideImages = document.querySelectorAll(".reveal-image");
-const immersiveImages = document.querySelectorAll(".immersive-image");
+const navLinks = document.querySelectorAll(".side-nav a");
+
+const imageBlocks = document.querySelectorAll(".image-reveal");
+const immersiveBlocks = document.querySelectorAll(".immersive");
 
 
 /* =========================================================
-   SHOW SIDEBAR ONLY AFTER HERO
+   SIDEBAR APPEARS AFTER HERO
    ========================================================= */
 
 const heroObserver = new IntersectionObserver(
   (entries) => {
-
     entries.forEach(entry => {
 
       if (entry.isIntersecting) {
@@ -27,7 +26,6 @@ const heroObserver = new IntersectionObserver(
       }
 
     });
-
   },
   {
     threshold: 0.05
@@ -38,8 +36,7 @@ heroObserver.observe(hero);
 
 
 /* =========================================================
-   SLEEK READING PROGRESS LINE
-   No percentage / number display.
+   THIN READING PROGRESS LINE
    ========================================================= */
 
 function updateProgress() {
@@ -54,7 +51,13 @@ function updateProgress() {
 
   const progress =
     documentHeight > 0
-      ? Math.min(100, Math.max(0, (scrollTop / documentHeight) * 100))
+      ? Math.min(
+          100,
+          Math.max(
+            0,
+            (scrollTop / documentHeight) * 100
+          )
+        )
       : 0;
 
   progressFill.style.height = progress + "%";
@@ -83,10 +86,12 @@ const sectionObserver = new IntersectionObserver(
       const id = entry.target.dataset.navSection;
 
       navLinks.forEach(link => {
+
         link.classList.toggle(
           "active",
           link.dataset.section === id
         );
+
       });
 
     });
@@ -98,14 +103,16 @@ const sectionObserver = new IntersectionObserver(
   }
 );
 
-sections.forEach(section => sectionObserver.observe(section));
+sections.forEach(section => {
+  sectionObserver.observe(section);
+});
 
 
 /* =========================================================
-   SEPARATE IMAGE BLOCK REVEALS
+   IMAGE BLOCK REVEAL
    ========================================================= */
 
-const imageObserver = new IntersectionObserver(
+const visualObserver = new IntersectionObserver(
   (entries) => {
 
     entries.forEach(entry => {
@@ -118,57 +125,73 @@ const imageObserver = new IntersectionObserver(
 
   },
   {
-    threshold: 0.28
+    threshold: 0.25
   }
 );
 
-wideImages.forEach(imageBlock => {
-  imageObserver.observe(imageBlock);
+
+/* Normal separate image blocks */
+
+imageBlocks.forEach(block => {
+  visualObserver.observe(block);
 });
 
 
-/* =========================================================
-   FULL-WIDTH BACKGROUND IMAGE SECTIONS
-   Each immersive block gets its image from data-bg-image.
-   ========================================================= */
+/* Full-width immersive image blocks */
 
-immersiveImages.forEach(section => {
+immersiveBlocks.forEach(block => {
 
-  const imageURL = section.dataset.bgImage;
+  const bg = block.dataset.bg;
 
-  if (imageURL) {
-    section.style.setProperty("--bg-image", `url("${imageURL}")`);
+  if (bg) {
+
+    block.style.setProperty(
+      "--bg-image",
+      `url("${bg}")`
+    );
+
   }
 
-  imageObserver.observe(section);
+  visualObserver.observe(block);
+
 });
 
 
 /* =========================================================
-   HERO: SUBTLE PARALLAX / ZOOM AS YOU LEAVE THE HERO
+   HERO PARALLAX / SLOW ZOOM
    ========================================================= */
 
 function heroParallax() {
 
+  if (!heroImage) return;
+
   const scrollY = window.scrollY;
 
-  if (scrollY < window.innerHeight) {
+  if (scrollY <= window.innerHeight) {
 
     const progress =
-      Math.min(1, scrollY / window.innerHeight);
+      Math.min(
+        1,
+        Math.max(
+          0,
+          scrollY / window.innerHeight
+        )
+      );
 
     const scale =
-      1.03 + (progress * 0.08);
+      1.02 + (progress * 0.07);
 
     const translateY =
-      progress * 25;
+      progress * 18;
 
-    image.style.transform =
+    heroImage.style.transform =
       `scale(${scale}) translateY(${translateY}px)`;
 
-    image.style.opacity =
-      String(1 - (progress * 0.18));
+    heroImage.style.opacity =
+      String(1 - (progress * 0.12));
+
   }
+
 }
 
 window.addEventListener("scroll", heroParallax, {
@@ -179,21 +202,32 @@ heroParallax();
 
 
 /* =========================================================
-   SMOOTH TEXT REVEAL
+   SUBTLE TEXT REVEAL
    ========================================================= */
 
-steps.forEach(step => {
+/*
+   Text does not disappear.
+   It begins slightly softer and moves gently into place
+   when the reader reaches it.
+*/
 
-  step.style.transition =
-    "opacity 0.7s ease, transform 0.8s ease";
+const textBlocks =
+  document.querySelectorAll(".text-block");
 
-  step.style.opacity = "0.45";
-  step.style.transform = "translateY(22px)";
+textBlocks.forEach(block => {
+
+  block.style.opacity = "0.55";
+
+  block.style.transform =
+    "translateY(18px)";
+
+  block.style.transition =
+    "opacity .8s ease, transform .9s ease";
 
 });
 
 
-const stepObserver = new IntersectionObserver(
+const textObserver = new IntersectionObserver(
   (entries) => {
 
     entries.forEach(entry => {
@@ -201,14 +235,19 @@ const stepObserver = new IntersectionObserver(
       if (!entry.isIntersecting) return;
 
       entry.target.style.opacity = "1";
-      entry.target.style.transform = "translateY(0)";
+
+      entry.target.style.transform =
+        "translateY(0)";
 
     });
 
   },
   {
-    threshold: 0.45
+    threshold: 0.3
   }
 );
 
-steps.forEach(step => stepObserver.observe(step));
+
+textBlocks.forEach(block => {
+  textObserver.observe(block);
+});
