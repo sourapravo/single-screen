@@ -11,11 +11,35 @@
 
 <body>
 
-  <!-- STICKY LEFT SIDEBAR -->
+  <!-- FULL-SCREEN HERO: no sidebar here -->
+  <section class="hero" id="home">
+    <div class="hero-background">
+      <img
+        id="hero-image"
+        src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+        alt="Cinema screen"
+      >
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <p class="eyebrow">A research prototype</p>
+      <h1>Single-Screen</h1>
+      <p class="hero-intro">
+        Notes toward a technological history of cinema halls in Bengal.
+      </p>
+      <div class="scroll-prompt">SCROLL TO ENTER</div>
+    </div>
+  </section>
+
+
+  <!-- STICKY SIDEBAR: appears only after the hero -->
   <aside class="sidebar" aria-label="Page navigation">
+
     <div class="sidebar-title">SINGLE-SCREEN</div>
 
-    <div class="progress-track">
+    <!-- sleek progress line only -->
+    <div class="progress-track" aria-hidden="true">
       <div class="progress-fill" id="progress-fill"></div>
     </div>
 
@@ -36,131 +60,148 @@
       </a>
     </nav>
 
-    <div class="progress-label">
-      <span id="progress-percent">0%</span>
-    </div>
   </aside>
 
 
   <main class="page">
 
-    <!-- HERO -->
-    <section class="hero">
-      <p class="eyebrow">A research prototype</p>
+    <!-- INTRODUCTION / TEXT-ONLY FLOW -->
+    <section class="text-section intro-section" id="intro" data-nav-section="intro">
 
-      <h1>Single-Screen</h1>
+      <div class="text-block">
+        <p class="section-number">01</p>
 
-      <p class="intro">
-        Notes toward a technological history of cinema halls in Bengal.
-      </p>
-    </section>
+        <h2>Going to Movies</h2>
 
+        <p>
+          Cinema-going was never simply about watching a film.
+          The journey to the theatre, the architecture of the hall,
+          the crowd, the ticket and the machinery of projection
+          were all part of the experience.
+        </p>
 
-    <!-- SCROLL STORY -->
-    <section class="story" id="intro" data-nav-section="intro">
-
-      <div class="story-text">
-
-        <div class="step" data-image="0">
-          <p class="step-number">01</p>
-          <h2>Going to Movies</h2>
-
-          <p>
-            Cinema-going was never simply about watching a film.
-            The journey to the theatre, the architecture of the hall,
-            the crowd, the ticket and the machinery of projection
-            were all part of the experience.
-          </p>
-
-          <p>
-            This prototype explores how these different elements
-            can become part of a single research narrative.
-            <a href="#note1" class="ref" aria-label="Footnote 1">¹</a>
-          </p>
-        </div>
-
-
-        <div class="step" data-image="1">
-          <p class="step-number">02</p>
-          <h2>The Hall</h2>
-
-          <p>
-            The cinema hall can be understood not simply as a container
-            for the screen, but as an assemblage of architecture,
-            technology, people and urban movement.
-          </p>
-        </div>
-
-
-        <div class="step" data-image="2">
-          <p class="step-number">03</p>
-          <h2>Technology</h2>
-
-          <p>
-            Projectors, sound systems, screens and electrical systems
-            transformed the experience of exhibition over time.
-          </p>
-        </div>
-
+        <p>
+          This prototype explores how these different elements
+          can become part of a single research narrative.
+          <a href="#note1" class="ref" aria-label="Footnote 1">¹</a>
+        </p>
       </div>
 
 
-      <!-- STICKY VISUAL -->
-      <div class="story-visual">
-        <div class="visual-frame" id="visual-frame">
-          <img
-            id="story-image"
-            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=85"
-            alt="Cinema screen"
-          >
-          <div class="image-index" id="image-index">01 / 03</div>
-        </div>
+      <!-- SEPARATE IMAGE BLOCK: wider than text -->
+      <figure class="wide-image-block reveal-image">
+        <img
+          src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90"
+          alt="Cinema screen"
+        >
+        <figcaption>Image caption can go here.</figcaption>
+      </figure>
+
+
+      <div class="text-block">
+        <p class="section-number">02</p>
+
+        <h2>The Hall</h2>
+
+        <p>
+          The cinema hall can be understood not simply as a container
+          for the screen, but as an assemblage of architecture,
+          technology, people and urban movement.
+        </p>
       </div>
+
+
+      <!-- FULL-WIDTH VISUAL MOMENT -->
+      <section class="immersive-image" data-bg-image="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2400&q=90">
+        <div class="immersive-overlay"></div>
+
+        <div class="immersive-content">
+          <p class="eyebrow">The built environment</p>
+          <h3>A hall is never only a room.</h3>
+          <p>
+            Architecture, machinery, bodies and movement meet here.
+          </p>
+        </div>
+      </section>
+
+
+      <div class="text-block">
+        <p class="section-number">03</p>
+
+        <h2>Technology</h2>
+
+        <p>
+          Projectors, sound systems, screens and electrical systems
+          transformed the experience of exhibition over time.
+        </p>
+
+        <p>
+          The machine was never isolated from the space around it;
+          it operated through a network of workers, infrastructures,
+          spectators and architectural arrangements.
+        </p>
+      </div>
+
+
+      <!-- ANOTHER SEPARATE IMAGE BLOCK -->
+      <figure class="wide-image-block reveal-image">
+        <img
+          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2200&q=90"
+          alt="Cinema archive placeholder"
+        >
+        <figcaption>Archival image / caption.</figcaption>
+      </figure>
 
     </section>
 
 
     <!-- CINEMA SECTION -->
-    <section class="normal-section" id="cinema" data-nav-section="cinema">
+    <section class="text-section" id="cinema" data-nav-section="cinema">
 
-      <p class="section-number">04</p>
+      <div class="text-block">
+        <p class="section-number">04</p>
 
-      <h2>Cinema and the City</h2>
+        <h2>Cinema and the City</h2>
 
-      <p>
-        Cinema halls were embedded within the changing geography
-        of the city. Their locations, entrances, streets and
-        neighbourhoods shaped the experience of moviegoing.
-      </p>
+        <p>
+          Cinema halls were embedded within the changing geography
+          of the city. Their locations, entrances, streets and
+          neighbourhoods shaped the experience of moviegoing.
+        </p>
 
-      <p>
-        This section will eventually contain photographs,
-        archival documents, maps and fieldwork material.
-      </p>
-
-      <div class="archive-image">
-        <img
-          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=85"
-          alt="Cinema archive placeholder"
-        >
+        <p>
+          This section will eventually contain photographs,
+          archival documents, maps and fieldwork material.
+        </p>
       </div>
+
+
+      <figure class="wide-image-block reveal-image">
+        <img
+          src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2200&q=90"
+          alt="Cinema image placeholder"
+        >
+        <figcaption>Image caption can go here.</figcaption>
+      </figure>
 
     </section>
 
 
     <!-- REFERENCES -->
-    <section class="normal-section references" id="references" data-nav-section="references">
+    <section class="text-section references" id="references" data-nav-section="references">
 
-      <p class="section-number">05</p>
+      <div class="text-block">
+        <p class="section-number">05</p>
 
-      <h2>Notes</h2>
+        <h2>Notes</h2>
 
-      <div class="note" id="note1">
-        <sup>1</sup>
-        <span>
-          Author, <em>Book Title</em>, Publisher, Year, p. 25.
-        </span>
-        <a href="#intro" class="back-link" aria-label="Return to text">↩</a>
+        <div class="note" id="note1">
+          <sup>1</sup>
+          <span>
+            Author, <em>Book Title</em>, Publisher, Year, p. 25.
+          </span>
+          <a href="#intro" class="back-link" aria-label="Return to text">↩</a>
+        </div>
       </div>
 
     </section>
