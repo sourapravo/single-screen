@@ -8,132 +8,111 @@ html {
 
 body {
   margin: 0;
-  background: #ffffff;
-  color: #171717;
+  background: #fff;
+  color: #181818;
   font-family: Arial, sans-serif;
-  line-height: 1.78;
+  line-height: 1.8;
 }
 
 
-/* =========================================================
-   FULL-SCREEN HERO
-   ========================================================= */
+/* =========================
+   HERO
+   ========================= */
 
 .hero {
   position: relative;
-  min-height: 100svh;
+  width: 100%;
   height: 100vh;
+  min-height: 680px;
   overflow: hidden;
-
-  display: flex;
-  align-items: flex-end;
-
   color: #fff;
 }
 
-.hero-background {
+.hero-media {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #111;
+  background: #ddd;
 }
 
-.hero-background img {
+.hero-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  transform: scale(1.03);
-  transition: transform 2s cubic-bezier(0.2, 0.7, 0.2, 1);
-
+  transform: scale(1.02);
+  transition: transform 2s cubic-bezier(.2,.7,.2,1), opacity .5s ease;
   will-change: transform;
 }
 
-.hero:hover .hero-background img {
-  transform: scale(1.07);
-}
-
-.hero-overlay {
+.hero-shade {
   position: absolute;
   inset: 0;
-
   background:
     linear-gradient(
-      to top,
-      rgba(0,0,0,0.72) 0%,
-      rgba(0,0,0,0.24) 48%,
-      rgba(0,0,0,0.06) 100%
+      90deg,
+      rgba(0,0,0,.56) 0%,
+      rgba(0,0,0,.18) 42%,
+      rgba(0,0,0,0) 75%
     );
 }
 
-.hero-content {
-  position: relative;
+.hero-copy {
+  position: absolute;
   z-index: 2;
-
-  width: 100%;
-  padding: 70px 8vw 60px;
+  left: 7vw;
+  bottom: 8vh;
+  max-width: 720px;
 }
 
 .eyebrow {
+  margin: 0 0 16px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 11px;
-  margin: 0 0 18px;
+  letter-spacing: .17em;
 }
 
 .hero h1 {
+  margin: 0 0 25px;
   font-family: Georgia, serif;
-  font-size: clamp(70px, 11vw, 160px);
-  line-height: 0.86;
   font-weight: 400;
-  letter-spacing: -0.055em;
-  margin: 0 0 28px;
+  font-size: clamp(70px, 11vw, 155px);
+  line-height: .88;
+  letter-spacing: -.055em;
 }
 
 .hero-intro {
-  max-width: 620px;
-  font-size: clamp(18px, 2vw, 25px);
-  line-height: 1.45;
+  max-width: 600px;
   margin: 0;
+  font-size: 21px;
+  line-height: 1.5;
 }
 
 .scroll-prompt {
-  margin-top: 70px;
-
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  opacity: 0.75;
+  margin-top: 60px;
+  font-size: 9px;
+  letter-spacing: .2em;
+  opacity: .8;
 }
 
 
-/* =========================================================
-   STICKY LEFT SIDEBAR
-   It begins after the hero, not on the opening screen.
-   ========================================================= */
+/* =========================
+   SIDEBAR
+   ========================= */
 
 .sidebar {
   position: fixed;
   z-index: 1000;
-
-  left: 30px;
+  left: 28px;
   top: 50%;
   transform: translateY(-50%);
 
   width: 170px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  color: #222;
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 
-  transition:
-    opacity 0.45s ease,
-    visibility 0.45s ease;
+  transition: opacity .45s ease, visibility .45s ease;
 }
 
 .sidebar.visible {
@@ -143,38 +122,27 @@ body {
 }
 
 .sidebar-title {
+  margin-bottom: 22px;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  line-height: 1.3;
+  letter-spacing: .12em;
 }
-
-
-/* Sleek progress line — no percentage */
 
 .progress-track {
   position: absolute;
-
-  left: -13px;
+  left: -12px;
   top: 34px;
-
   width: 1px;
   height: 205px;
-
-  background: #dedede;
+  background: #e0e0e0;
 }
 
 .progress-fill {
-  width: 100%;
-  height: 0%;
-
+  width: 1px;
+  height: 0;
   background: #111;
-
-  transition: height 0.08s linear;
+  transition: height .08s linear;
 }
-
-
-/* Sidebar navigation */
 
 .side-nav {
   display: flex;
@@ -187,15 +155,12 @@ body {
   align-items: center;
   gap: 8px;
 
-  color: #9a9a9a;
+  color: #a0a0a0;
   text-decoration: none;
-
   font-size: 11px;
   line-height: 1.2;
 
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
+  transition: color .25s ease, transform .25s ease;
 }
 
 .side-nav a:hover {
@@ -211,15 +176,10 @@ body {
 .nav-dot {
   width: 5px;
   height: 5px;
-
+  flex: 0 0 5px;
   border-radius: 50%;
   background: #d0d0d0;
-
-  flex: 0 0 5px;
-
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
+  transition: background .25s ease, transform .25s ease;
 }
 
 .side-nav a.active .nav-dot {
@@ -228,60 +188,48 @@ body {
 }
 
 
-/* =========================================================
-   MAIN PAGE
-   ========================================================= */
+/* =========================
+   PAGE / CENTRAL TEXT
+   ========================= */
 
 .page {
   margin-left: 230px;
 }
 
-
-/* =========================================================
-   TEXT-LED LONG FORM
-   All text blocks share one central reading column.
-   ========================================================= */
-
-.text-section {
-  padding: 0 40px;
+.longform {
+  padding: 0 35px;
 }
 
 .text-block {
   width: min(750px, 100%);
   margin: 0 auto;
-
-  padding: 170px 0;
+  padding: 160px 0;
 }
 
-.intro-section > .text-block:first-child {
+.first-text {
   padding-top: 180px;
 }
 
 .section-number {
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-
-  font-size: 10px;
-  color: #999;
-
   margin: 0 0 18px;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 h2 {
+  margin: 0 0 30px;
   font-family: Georgia, serif;
-  font-weight: 400;
-
   font-size: clamp(38px, 4vw, 52px);
   line-height: 1.04;
-
-  letter-spacing: -0.025em;
-
-  margin: 0 0 32px;
-
+  font-weight: 400;
+  letter-spacing: -.025em;
   text-align: left;
 }
 
 .text-block p:not(.section-number) {
+  margin: 0 0 25px;
   max-width: 750px;
 
   font-size: 18px;
@@ -289,173 +237,29 @@ h2 {
 
   text-align: justify;
   text-justify: inter-word;
-
-  margin: 0 0 24px;
 }
 
 
-/* =========================================================
-   BLUE IN-TEXT REFERENCES
-   ========================================================= */
+/* =========================
+   REFERENCES
+   ========================= */
 
 .ref {
   color: #1769e0;
   text-decoration: none;
-
-  font-size: 0.72em;
+  font-size: .72em;
   vertical-align: super;
-
-  transition: opacity 0.2s ease;
 }
 
-.ref:hover {
-  opacity: 0.55;
+.ref:hover,
+.back-link:hover {
+  opacity: .55;
 }
 
-
-/* =========================================================
-   SEPARATE IMAGE BLOCKS
-   Wider than text, but never beside text.
-   ========================================================= */
-
-.wide-image-block {
-  width: min(1120px, calc(100vw - 310px));
-  margin: 0 auto 150px;
-
-  padding: 0;
-
-  overflow: hidden;
-}
-
-.wide-image-block img {
-  display: block;
-
-  width: 100%;
-  height: auto;
-  max-height: 78vh;
-
-  object-fit: cover;
-
-  transform: scale(1.06);
-  opacity: 0.72;
-
-  transition:
-    transform 1.8s cubic-bezier(0.2, 0.7, 0.2, 1),
-    opacity 1.1s ease;
-
-  will-change: transform, opacity;
-}
-
-.wide-image-block.is-visible img {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.wide-image-block figcaption {
-  margin-top: 10px;
-
-  font-size: 10px;
-  line-height: 1.4;
-
-  color: #999;
-  text-align: left;
-}
-
-
-/* =========================================================
-   FULL-WIDTH IMMERSIVE IMAGE SECTION
-   Text floats over the image.
-   ========================================================= */
-
-.immersive-image {
-  position: relative;
-
-  width: 100vw;
-  min-height: 100svh;
-
-  margin-left: calc((100vw - 100%) / -2);
-
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
-
-  color: #fff;
-}
-
-.immersive-image::before {
-  content: "";
-
-  position: absolute;
-  inset: -5%;
-
-  background-image: inherit;
-  background-size: cover;
-  background-position: center;
-
-  transform: scale(1.04);
-
-  transition: transform 2.2s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.immersive-image.is-visible::before {
-  transform: scale(1);
-}
-
-.immersive-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,0.62),
-      rgba(0,0,0,0.12) 70%
-    );
-}
-
-.immersive-content {
-  position: relative;
-  z-index: 2;
-
-  width: min(750px, calc(100% - 60px));
-
-  margin: auto;
-
-  padding: 100px 0;
-}
-
-.immersive-content h3 {
-  max-width: 760px;
-
-  font-family: Georgia, serif;
-  font-weight: 400;
-
-  font-size: clamp(44px, 7vw, 92px);
-  line-height: 0.96;
-
-  letter-spacing: -0.04em;
-
-  margin: 15px 0 30px;
-}
-
-.immersive-content p:last-child {
-  max-width: 550px;
-
-  font-size: 18px;
-}
-
-
-/* =========================================================
-   REFERENCES
-   ========================================================= */
-
-.references {
-  padding-bottom: 300px;
+.back-link {
+  color: #1769e0;
+  text-decoration: none;
+  margin-left: 8px;
 }
 
 .note {
@@ -463,46 +267,152 @@ h2 {
   align-items: flex-start;
   gap: 8px;
 
+  padding: 22px 0;
+  border-top: 1px solid #e5e5e5;
+
   font-size: 14px;
   line-height: 1.65;
-
-  padding: 22px 0;
-
-  border-top: 1px solid #e4e4e4;
 }
 
-.note sup {
-  font-size: 11px;
+
+/* =========================
+   SEPARATE IMAGE BLOCKS
+   ========================= */
+
+.image-block {
+  width: min(1080px, calc(100vw - 300px));
+  margin: 0 auto 150px;
+}
+
+.image-wrap {
+  overflow: hidden;
+  background: #f3f3f3;
+}
+
+.image-block img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: cover;
+
+  opacity: .65;
+  transform: scale(1.045);
+
+  transition:
+    opacity 1s ease,
+    transform 2s cubic-bezier(.2,.7,.2,1);
+}
+
+.image-block.is-visible img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.image-block figcaption {
+  margin-top: 9px;
+  color: #999;
+  font-size: 10px;
   line-height: 1.4;
 }
 
-.back-link {
-  color: #1769e0;
-  text-decoration: none;
 
-  margin-left: 8px;
+/* =========================
+   SELECTED FULL-WIDTH IMAGE
+   WITH TEXT FLOATING OVER IT
+   ========================= */
 
-  transition: opacity 0.2s ease;
+.immersive {
+  position: relative;
+  width: 100vw;
+  min-height: 88vh;
+
+  margin-left: calc((100vw - 100%) / -2);
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  color: #fff;
+  background: #111;
 }
 
-.back-link:hover {
-  opacity: 0.55;
+.immersive-bg {
+  position: absolute;
+  inset: -3%;
+
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+
+  transform: scale(1.08);
+  transition: transform 2.4s cubic-bezier(.2,.7,.2,1);
+}
+
+.immersive.is-visible .immersive-bg {
+  transform: scale(1);
+}
+
+.immersive-shade {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.62),
+      rgba(0,0,0,.18) 62%,
+      rgba(0,0,0,.05)
+    );
+}
+
+.immersive-copy {
+  position: relative;
+  z-index: 2;
+
+  width: min(750px, calc(100% - 60px));
+  margin: 0 auto;
+
+  transform: translateY(25px);
+  opacity: 0;
+
+  transition:
+    transform 1s ease,
+    opacity 1s ease;
+}
+
+.immersive.is-visible .immersive-copy {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.immersive-copy h3 {
+  max-width: 750px;
+  margin: 0 0 25px;
+
+  font-family: Georgia, serif;
+  font-size: clamp(46px, 6.5vw, 92px);
+  line-height: .94;
+  font-weight: 400;
+  letter-spacing: -.04em;
+}
+
+.immersive-copy p:last-child {
+  max-width: 550px;
+  margin: 0;
+  font-size: 18px;
 }
 
 
-/* =========================================================
+/* =========================
    MOBILE
-   ========================================================= */
+   ========================= */
 
 @media (max-width: 900px) {
 
   .sidebar {
-    left: 15px;
+    left: 14px;
     width: 120px;
-  }
-
-  .side-nav {
-    gap: 11px;
   }
 
   .side-nav a {
@@ -513,20 +423,16 @@ h2 {
     margin-left: 165px;
   }
 
-  .text-section {
+  .longform {
     padding: 0 25px;
   }
 
   .text-block {
-    padding: 130px 0;
+    padding: 125px 0;
   }
 
-  .wide-image-block {
+  .image-block {
     width: calc(100vw - 190px);
-  }
-
-  .immersive-content {
-    width: calc(100% - 50px);
   }
 }
 
@@ -540,11 +446,9 @@ h2 {
     transform: none;
 
     width: 100%;
-    height: auto;
-
     padding: 10px 15px;
 
-    background: rgba(255,255,255,0.94);
+    background: rgba(255,255,255,.94);
     backdrop-filter: blur(10px);
 
     border-top: 1px solid #eee;
@@ -558,7 +462,6 @@ h2 {
   .side-nav {
     flex-direction: row;
     justify-content: space-between;
-    gap: 8px;
   }
 
   .side-nav a {
@@ -573,24 +476,21 @@ h2 {
     margin-left: 0;
   }
 
-  .hero-content {
-    padding: 55px 25px 45px;
-  }
-
-  .hero h1 {
-    font-size: clamp(58px, 18vw, 90px);
+  .hero-copy {
+    left: 25px;
+    right: 25px;
+    bottom: 45px;
   }
 
   .hero-intro {
     font-size: 18px;
   }
 
-  .text-section {
+  .longform {
     padding: 0 22px;
   }
 
   .text-block {
-    width: 100%;
     padding: 110px 0;
   }
 
@@ -603,26 +503,22 @@ h2 {
     font-size: 36px;
   }
 
-  .wide-image-block {
+  .image-block {
     width: 100vw;
     margin-left: calc((100vw - 100%) / -2);
     margin-bottom: 100px;
   }
 
-  .wide-image-block figcaption {
+  .image-block figcaption {
     padding: 0 22px;
   }
 
-  .immersive-image {
+  .immersive {
     width: 100vw;
     margin-left: calc((100vw - 100%) / -2);
   }
 
-  .immersive-content {
+  .immersive-copy {
     width: calc(100% - 44px);
-  }
-
-  .immersive-content h3 {
-    font-size: clamp(42px, 13vw, 68px);
   }
 }
