@@ -11,19 +11,40 @@
 
 <body>
 
-  <header class="topbar">
-    <div class="site-title">SINGLE-SCREEN</div>
+  <!-- STICKY LEFT SIDEBAR -->
+  <aside class="sidebar" aria-label="Page navigation">
+    <div class="sidebar-title">SINGLE-SCREEN</div>
 
-    <nav>
-      <a href="#intro">Introduction</a>
-      <a href="#cinema">Cinema</a>
-      <a href="#references">Notes</a>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <nav class="side-nav">
+      <a href="#intro" data-section="intro" class="active">
+        <span class="nav-dot"></span>
+        <span>Introduction</span>
+      </a>
+
+      <a href="#cinema" data-section="cinema">
+        <span class="nav-dot"></span>
+        <span>Cinema</span>
+      </a>
+
+      <a href="#references" data-section="references">
+        <span class="nav-dot"></span>
+        <span>Notes</span>
+      </a>
     </nav>
-  </header>
+
+    <div class="progress-label">
+      <span id="progress-percent">0%</span>
+    </div>
+  </aside>
 
 
-  <main>
+  <main class="page">
 
+    <!-- HERO -->
     <section class="hero">
       <p class="eyebrow">A research prototype</p>
 
@@ -36,12 +57,12 @@
 
 
     <!-- SCROLL STORY -->
-
-    <section class="story" id="intro">
+    <section class="story" id="intro" data-nav-section="intro">
 
       <div class="story-text">
 
-        <div class="step">
+        <div class="step" data-image="0">
+          <p class="step-number">01</p>
           <h2>Going to Movies</h2>
 
           <p>
@@ -54,12 +75,13 @@
           <p>
             This prototype explores how these different elements
             can become part of a single research narrative.
-            <a href="#note1" class="ref">¹</a>
+            <a href="#note1" class="ref" aria-label="Footnote 1">¹</a>
           </p>
         </div>
 
 
-        <div class="step">
+        <div class="step" data-image="1">
+          <p class="step-number">02</p>
           <h2>The Hall</h2>
 
           <p>
@@ -70,7 +92,8 @@
         </div>
 
 
-        <div class="step">
+        <div class="step" data-image="2">
+          <p class="step-number">03</p>
           <h2>Technology</h2>
 
           <p>
@@ -83,22 +106,24 @@
 
 
       <!-- STICKY VISUAL -->
-
       <div class="story-visual">
-
-        <div class="visual-frame">
+        <div class="visual-frame" id="visual-frame">
           <img
             id="story-image"
-            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80"
-            alt="Cinema screen">
+            src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=85"
+            alt="Cinema screen"
+          >
+          <div class="image-index" id="image-index">01 / 03</div>
         </div>
-
       </div>
 
     </section>
 
 
-    <section class="normal-section" id="cinema">
+    <!-- CINEMA SECTION -->
+    <section class="normal-section" id="cinema" data-nav-section="cinema">
+
+      <p class="section-number">04</p>
 
       <h2>Cinema and the City</h2>
 
@@ -113,17 +138,29 @@
         archival documents, maps and fieldwork material.
       </p>
 
+      <div class="archive-image">
+        <img
+          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=85"
+          alt="Cinema archive placeholder"
+        >
+      </div>
+
     </section>
 
 
-    <section class="normal-section" id="references">
+    <!-- REFERENCES -->
+    <section class="normal-section references" id="references" data-nav-section="references">
+
+      <p class="section-number">05</p>
 
       <h2>Notes</h2>
 
       <div class="note" id="note1">
         <sup>1</sup>
-        Author, <em>Book Title</em>, Publisher, Year, p. 25.
-        <a href="#intro">↩</a>
+        <span>
+          Author, <em>Book Title</em>, Publisher, Year, p. 25.
+        </span>
+        <a href="#intro" class="back-link" aria-label="Return to text">↩</a>
       </div>
 
     </section>
