@@ -1,591 +1,354 @@
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
 const sidebar = document.getElementById("sidebar");
 const hero = document.getElementById("home");
-const heroImage = document.getElementById("hero-img");
+const progress = document.getElementById("progress");
+const links = document.querySelectorAll(".sidebar a");
+const sections = document.querySelectorAll("[data-section]");
+const reveal = document.querySelectorAll(".reveal, .reveal-image");
 
-const progressLine =
-  document.getElementById("progress-line-fill");
+const deep = document.getElementById("deep");
+const deepPh = document.querySelector(".deep-ph");
 
-const navigationLinks =
-  document.querySelectorAll(".sidebar nav a");
+const steps = document.querySelectorAll(".steps article");
+const stickyPh = document.getElementById("sticky-ph");
 
-const sections =
-  document.querySelectorAll(
-    "[data-section-name]"
-  );
+const bgStory = document.querySelector(".bg-story");
+const bgPh = document.getElementById("bg-ph");
+const bgSteps = document.querySelectorAll(".bg-steps article");
 
-const imageBlocks =
-  document.querySelectorAll(
-    ".image-block"
-  );
-
-const immersiveSections =
-  document.querySelectorAll(
-    ".immersive-section"
-  );
+const numberItems = document.querySelectorAll(".numbers div");
 
 
 /* =========================================================
-   1. SIDEBAR APPEARS AFTER HERO
+   HERO → SIDEBAR
+   Sidebar stays hidden while the hero is visible.
    ========================================================= */
 
-/*
-   While the visitor is inside the hero:
-       sidebar = hidden
-
-   Once they begin reading the page:
-       sidebar = visible
-*/
-
-const heroObserver =
-  new IntersectionObserver(
-
-    (entries) => {
-
-      entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-          sidebar.classList.remove("visible");
-
-        } else {
-
-          sidebar.classList.add("visible");
-
-        }
-
-      });
-
-    },
-
-    {
-      threshold: 0.05
-    }
-
-  );
-
-
-heroObserver.observe(hero);
-
-
-/* =========================================================
-   2. READING PROGRESS
-   ========================================================= */
-
-/*
-   This controls ONLY the thin vertical line.
-
-   There is deliberately:
-       no 0%
-       no 50%
-       no 100%
-
-   Just a discreet moving line.
-*/
-
-function updateReadingProgress() {
-
-  const scrollTop =
-    window.scrollY ||
-    document.documentElement.scrollTop;
-
-
-  const pageHeight =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
-
-
-  let progress = 0;
-
-
-  if (pageHeight > 0) {
-
-    progress =
-      (scrollTop / pageHeight) * 100;
-
+new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      sidebar.classList.toggle("visible", !entry.isIntersecting);
+    });
+  },
+  {
+    threshold: 0.05
   }
+).observe(hero);
 
 
-  progress =
-    Math.min(
-      100,
-      Math.max(0, progress)
-    );
+/* =========================================================
+   THIN READING PROGRESS LINE
+   ========================================================= */
 
+function progressBar() {
+  const pageHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
 
-  progressLine.style.height =
-    progress + "%";
+  const percentage = pageHeight
+    ? (window.scrollY / pageHeight) * 100
+    : 0;
 
+  progress.style.height =
+    Math.min(100, Math.max(0, percentage)) + "%";
 }
 
+window.addEventListener("scroll", progressBar, {
+  passive: true
+});
+
+window.addEventListener("resize", progressBar);
+
+progressBar();
+
+
+/* =========================================================
+   ACTIVE SIDEBAR SECTION
+   ========================================================= */
+
+const sectionObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      links.forEach(link => {
+        link.classList.toggle(
+          "active",
+          link.dataset.nav === entry.target.dataset.section
+        );
+      });
+    });
+  },
+  {
+    rootMargin: "-35% 0px -55% 0px"
+  }
+);
+
+sections.forEach(section => {
+  sectionObserver.observe(section);
+});
+
+
+/* =========================================================
+   GENERAL SCROLL REVEALS
+   ========================================================= */
+
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+      }
+    });
+  },
+  {
+    threshold: 0.2
+  }
+);
+
+reveal.forEach(element => {
+  revealObserver.observe(element);
+});
+
+
+/* =========================================================
+   TYPE 04 — DEEP ZOOM
+   Scroll position controls the image scale.
+   ========================================================= */
+
+function deepZoom() {
+  if (!deep || !deepPh) return;
+
+  const rect = deep.getBoundingClientRect();
+
+  let progressValue =
+    (window.innerHeight - rect.top) /
+    (window.innerHeight + rect.height);
+
+  progressValue = Math.max(
+    0,
+    Math.min(1, progressValue)
+  );
+
+  const scale =
+    1 + progressValue * 1.8;
+
+  const x =
+    (progressValue - 0.5) * 4;
+
+  const y =
+    -progressValue * 4;
+
+  deepPh.style.transform =
+    `scale(${scale}) translate(${x}%, ${y}%)`;
+}
+
+window.addEventListener("scroll", deepZoom, {
+  passive: true
+});
+
+window.addEventListener("resize", deepZoom);
+
+deepZoom();
+
+
+/* =========================================================
+   TYPE 07 — STICKY / PINNED VISUAL
+   Different text steps control the visual state.
+   ========================================================= */
+
+const stepObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      steps.forEach(step => {
+        step.classList.remove("is-active");
+      });
+
+      entry.target.classList.add("is-active");
+
+      const stepNumber =
+        Number(entry.target.dataset.step);
+
+      /*
+       * Prototype:
+       * each step slightly changes the scale.
+       *
+       * Later, these states can switch actual images,
+       * maps, photographs, or other visual material.
+       */
+
+      if (stickyPh) {
+        stickyPh.style.transform =
+          `scale(${1 + stepNumber * 0.08})`;
+      }
+    });
+  },
+  {
+    rootMargin: "-35% 0px -35% 0px"
+  }
+);
+
+steps.forEach(step => {
+  stepObserver.observe(step);
+});
+
+
+/* =========================================================
+   TYPE 08 — SCROLLING BACKGROUND TRANSITION
+   ========================================================= */
+
+function backgroundScroll() {
+  if (!bgStory || !bgPh) return;
+
+  const rect =
+    bgStory.getBoundingClientRect();
+
+  const availableHeight =
+    bgStory.offsetHeight -
+    window.innerHeight;
+
+  let scrollProgress =
+    -rect.top /
+    Math.max(1, availableHeight);
+
+  scrollProgress = Math.max(
+    0,
+    Math.min(1, scrollProgress)
+  );
+
+  const imageCount =
+    bgSteps.length;
+
+  const activeIndex =
+    Math.min(
+      imageCount - 1,
+      Math.floor(
+        scrollProgress * imageCount
+      )
+    );
+
+  bgSteps.forEach((step, index) => {
+    step.classList.toggle(
+      "active",
+      index === activeIndex
+    );
+  });
+
+
+  /*
+   * Prototype background states.
+   *
+   * When we add the actual photographs,
+   * these will become real image cross-fades.
+   */
+
+  const backgrounds = [
+    "linear-gradient(120deg, #777, #444 55%, #222)",
+    "linear-gradient(120deg, #999, #555 55%, #252525)",
+    "linear-gradient(120deg, #666, #333 55%, #111)"
+  ];
+
+  bgPh.style.background =
+    backgrounds[activeIndex] ||
+    backgrounds[0];
+
+  bgPh.style.transform =
+    `scale(${1.02 + scrollProgress * 0.05})`;
+}
 
 window.addEventListener(
   "scroll",
-  updateReadingProgress,
+  backgroundScroll,
   {
     passive: true
   }
 );
-
 
 window.addEventListener(
   "resize",
-  updateReadingProgress
+  backgroundScroll
 );
 
-
-updateReadingProgress();
+backgroundScroll();
 
 
 /* =========================================================
-   3. ACTIVE SIDEBAR ITEM
+   NUMBER / DATA SEQUENCE
    ========================================================= */
 
-/*
-   As the reader moves through the page,
-   the corresponding sidebar item becomes active.
-*/
-
-const sectionObserver =
+const numberObserver =
   new IntersectionObserver(
-
-    (entries) => {
-
+    entries => {
       entries.forEach(entry => {
-
-        if (!entry.isIntersecting) {
-          return;
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
         }
-
-
-        const currentSection =
-          entry.target.dataset.sectionName;
-
-
-        navigationLinks.forEach(link => {
-
-          const linkSection =
-            link.dataset.section;
-
-
-          link.classList.toggle(
-
-            "active",
-
-            linkSection === currentSection
-
-          );
-
-        });
-
       });
-
     },
-
     {
-      rootMargin:
-        "-35% 0px -55% 0px",
-
-      threshold: 0
+      threshold: 0.45
     }
-
   );
 
-
-sections.forEach(section => {
-
-  sectionObserver.observe(section);
-
+numberItems.forEach(item => {
+  numberObserver.observe(item);
 });
 
 
 /* =========================================================
-   4. NORMAL IMAGE BLOCK ANIMATION
+   SIDEBAR SMOOTH SCROLL
    ========================================================= */
 
-/*
-   Every normal image starts:
+links.forEach(link => {
 
-       slightly zoomed
-       slightly transparent
+  link.addEventListener("click", event => {
 
-   When it enters the viewport:
-
-       becomes clear
-       slowly returns to normal scale
-*/
-
-const imageObserver =
-  new IntersectionObserver(
-
-    (entries) => {
-
-      entries.forEach(entry => {
-
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-
-        entry.target.classList.add(
-          "is-visible"
-        );
-
-      });
-
-    },
-
-    {
-      threshold: 0.25
-    }
-
-  );
-
-
-imageBlocks.forEach(block => {
-
-  imageObserver.observe(block);
-
-});
-
-
-/* =========================================================
-   5. IMMERSIVE IMAGE BACKGROUNDS
-   ========================================================= */
-
-/*
-   The image URL is stored in the HTML as:
-
-   data-background="IMAGE URL"
-
-   JavaScript takes that URL and makes it
-   the background image of the immersive section.
-*/
-
-immersiveSections.forEach(section => {
-
-  const background =
-    section.dataset.background;
-
-
-  if (background) {
-
-    section.style.setProperty(
-
-      "--immersive-image",
-
-      `url("${background}")`
-
-    );
-
-  }
-
-
-  imageObserver.observe(section);
-
-});
-
-
-/* =========================================================
-   6. HERO IMAGE PARALLAX
-   ========================================================= */
-
-/*
-   While leaving the hero:
-
-       image slowly zooms
-       image moves slightly
-       image becomes slightly softer
-
-   This is intentionally subtle.
-*/
-
-function heroParallax() {
-
-  if (!heroImage) {
-    return;
-  }
-
-
-  const scrollY =
-    window.scrollY;
-
-
-  const heroHeight =
-    window.innerHeight;
-
-
-  if (scrollY <= heroHeight) {
-
-
-    let progress =
-      scrollY / heroHeight;
-
-
-    progress =
-      Math.min(
-        1,
-        Math.max(0, progress)
+    const target =
+      document.querySelector(
+        link.getAttribute("href")
       );
 
+    if (!target) return;
 
-    const scale =
-      1.02 +
-      (progress * 0.07);
+    event.preventDefault();
 
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
 
-    const movement =
-      progress * 18;
-
-
-    heroImage.style.transform =
-      `scale(${scale})
-       translateY(${movement}px)`;
-
-
-    heroImage.style.opacity =
-      1 -
-      (progress * 0.12);
-
-  }
-
-}
-
-
-window.addEventListener(
-  "scroll",
-  heroParallax,
-  {
-    passive: true
-  }
-);
-
-
-heroParallax();
-
-
-/* =========================================================
-   7. TEXT BLOCK REVEAL
-   ========================================================= */
-
-/*
-   Text doesn't disappear.
-
-   It starts slightly softer and moves gently
-   upward into its normal position when the reader
-   reaches it.
-*/
-
-const textBlocks =
-  document.querySelectorAll(
-    ".text-column"
-  );
-
-
-textBlocks.forEach(block => {
-
-  block.style.opacity =
-    "0.55";
-
-
-  block.style.transform =
-    "translateY(18px)";
-
-
-  block.style.transition =
-    "opacity .8s ease, " +
-    "transform .9s ease";
-
-});
-
-
-const textObserver =
-  new IntersectionObserver(
-
-    (entries) => {
-
-      entries.forEach(entry => {
-
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-
-        entry.target.style.opacity =
-          "1";
-
-
-        entry.target.style.transform =
-          "translateY(0)";
-
-      });
-
-    },
-
-    {
-      threshold: 0.3
-    }
-
-  );
-
-
-textBlocks.forEach(block => {
-
-  textObserver.observe(block);
+  });
 
 });
 
 
 /* =========================================================
-   8. FOOTNOTE RETURN
+   FOOTNOTE / ENDNOTE LINKS
    ========================================================= */
 
-/*
-   The HTML already connects:
-
-       ¹ → Note 1
-
-   and:
-
-       ↩ → original text
-
-   We add smooth scrolling and briefly highlight
-   the destination so the reader knows where they
-   returned.
-*/
-
-const citations =
-  document.querySelectorAll(
-    ".citation"
-  );
-
-
-const returnLinks =
-  document.querySelectorAll(
-    ".return-link"
-  );
-
-
-function smoothFootnoteNavigation(
-  links
-) {
-
-  links.forEach(link => {
+document
+  .querySelectorAll(".ref, .notes-grid a")
+  .forEach(link => {
 
     link.addEventListener(
       "click",
-      function(event) {
-
-        const targetID =
-          this.getAttribute("href");
-
-
-        if (!targetID) {
-          return;
-        }
-
+      event => {
 
         const target =
           document.querySelector(
-            targetID
+            link.getAttribute("href")
           );
 
-
-        if (!target) {
-          return;
-        }
-
+        if (!target) return;
 
         event.preventDefault();
 
-
         target.scrollIntoView({
-
           behavior: "smooth",
-
           block: "center"
-
         });
-
-
-        /*
-           Brief visual indication of
-           where the reader has arrived.
-        */
-
-        target.style.transition =
-          "background-color .3s ease";
-
-
-        target.style.backgroundColor =
-          "#eef5ff";
-
-
-        setTimeout(() => {
-
-          target.style.backgroundColor =
-            "transparent";
-
-        }, 900);
 
       }
     );
 
   });
-
-}
-
-
-smoothFootnoteNavigation(
-  citations
-);
-
-
-smoothFootnoteNavigation(
-  returnLinks
-);
-
-
-/* =========================================================
-   9. SIDEBAR LINK SMOOTH SCROLL
-   ========================================================= */
-
-navigationLinks.forEach(link => {
-
-  link.addEventListener(
-    "click",
-    function(event) {
-
-      const targetID =
-        this.getAttribute("href");
-
-
-      const target =
-        document.querySelector(
-          targetID
-        );
-
-
-      if (!target) {
-        return;
-      }
-
-
-      event.preventDefault();
-
-
-      target.scrollIntoView({
-
-        behavior: "smooth",
-
-        block: "start"
-
-      });
-
-    }
-  );
-
-});
